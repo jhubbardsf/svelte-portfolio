@@ -1,15 +1,23 @@
+<script context="module" lang="ts">
+</script>
+
 <script lang="ts">
 	import type { Tab } from '$lib/types';
 	import { page } from '$app/stores';
+	import Title from '$lib/utils/Title.svelte';
 
-	let tabs: Array<Tab> = [
+	const tabs = [
 		{ href: '/', title: 'Home' },
 		{ href: '/about', title: 'About' },
 		{ href: '/todos', title: 'Todos' },
 		{ href: '/counter', title: 'Counter' },
 		{ href: '/logout', title: 'Logout' }
 	];
+
+	$: title = tabs.find((tab) => tab.href == $page.url.pathname).title;
 </script>
+
+<Title {title} />
 
 <header>
 	<div class="corner">
