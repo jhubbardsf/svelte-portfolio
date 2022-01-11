@@ -1,6 +1,3 @@
-<script context="module" lang="ts">
-</script>
-
 <script lang="ts">
 	import type { Tab } from '$lib/types';
 	import { page } from '$app/stores';
