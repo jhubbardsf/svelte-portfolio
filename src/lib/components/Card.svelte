@@ -6,7 +6,7 @@
 	<slot />
 </div>
 
-<style lang="scss">
+<style>
 	.card {
 		font-family: 'Roboto';
 		background-color: rgba(255, 255, 255, 1);
@@ -15,8 +15,10 @@
 		transition: 0.3s;
 		width: 40%;
 		padding: 20px;
-		&:hover {
+		min-height: var(--min-height);
+
+	}
+	.card:hover {
 			box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 		}
-	}
 </style>
