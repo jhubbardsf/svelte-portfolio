@@ -4,7 +4,7 @@
 </script>
 
 <Card>
-	<h1>{`Hello ${$session.user.name}`}</h1>
+	<h1>{`Hello ${$session.user.name || ''}`}</h1>
 	<p>
 		This is an app that will demonstrate some of the cool features of Svelte and SvelteKit. You can
 		play around with some of the examples and come back anytime. More features will be added. You

@@ -1,25 +1,30 @@
 <script lang="ts">
 	import { session } from '$app/stores';
+	import { emailSignIn } from '$lib/client/emailAuthentication';
 	import '@fontsource/roboto';
+
+	let username: string;
+	let password: string;
 
 	const submitLogin = (e) => {
 		console.log('Clicked login form');
+		emailSignIn(username, password);
 	};
 </script>
 
 <form>
 	<div class="form-field">
 		<label for="email">Email</label>
-		<input type="string" id="email" autocomplete="username" />
+		<input type="string" id="email" autocomplete="username" bind:value={username} />
 		<div class="error" />
 	</div>
 	<div class="form-field">
 		<label for="password">Password</label>
-		<input type="password" id="password" autocomplete="current-password" />
+		<input type="password" id="password" autocomplete="current-password" bind:value={password} />
 		<div class="error" />
 	</div>
 	<div class="form-field center">
-		<button on:click|preventDefault={() => submitLogin}>Login</button>
+		<button on:click|preventDefault={submitLogin}>Login</button>
 	</div>
 </form>
 
