@@ -19,7 +19,7 @@
 </script>
 
 <script lang="ts">
-	import Counter from '$lib/components/Counter.svelte';
+	import Counter from '$lib/utils/Counter.svelte';
 	import CountStore from '$lib/stores/count';
 
 	export let count;

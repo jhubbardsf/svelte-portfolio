@@ -1,8 +1,9 @@
 <script lang="ts">
+	import { session } from '$app/stores';
 	import '@fontsource/roboto';
 
 	const submitLogin = (e) => {
-		console.log('Submitted form');
+		console.log('Clicked login form');
 	};
 </script>
 
@@ -14,7 +15,7 @@
 	</div>
 	<div class="form-field">
 		<label for="password">Password</label>
-		<input type="password" id="password" autocomplete="password" />
+		<input type="password" id="password" autocomplete="current-password" />
 		<div class="error" />
 	</div>
 	<div class="form-field center">
