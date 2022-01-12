@@ -23,12 +23,5 @@
 			font-weight: bold;
 			padding: 0;
 		}
-		.icon {
-			display: flex;
-			flex-direction: row;
-			padding: 5px;
-			border-right: 2px solid black;
-			width: fit-content;
-		}
 	}
 </style>
