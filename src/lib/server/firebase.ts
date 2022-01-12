@@ -1,5 +1,6 @@
 import admin from 'firebase-admin';
 import { browser } from '$app/env';
+// import { initializeApp } from 'firebase-admin/app';
 import { initializeApp } from 'firebase-admin/app';
 
 if (browser) {
