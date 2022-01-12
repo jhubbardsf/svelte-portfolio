@@ -3,7 +3,13 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signO
 import { goto } from '$app/navigation';
 import { session } from '$app/stores';
 import { browser } from '$app/env';
-
+import {
+    getFirestore, collection, onSnapshot,
+    addDoc, deleteDoc, doc,
+    query, where,
+    orderBy, serverTimestamp,
+    updateDoc
+} from 'firebase/firestore'
 
 const firebaseConfig = {
     apiKey: "AIzaSyB92RJx79Lv4FOgAO_vE4W3TYlU-DoyvV8",
@@ -23,9 +29,7 @@ export let db;
 export function initializeFirebase() {
     if (!app) {
         app = initializeApp(firebaseConfig);
-        // db = getFirestore(app);
-        // listenForAuthChanges();
-        // watchStateChange();
+        db = getFirestore(app);
     }
 }
 

@@ -1,5 +1,30 @@
+<script context="module">
+	export async function load({ params, fetch, session, stuff }) {
+		const url = `api/count/${session.user.uid}.json`;
+		const res = await fetch(url);
+
+		if (res.ok) {
+			return {
+				props: {
+					count: await res.json()
+				}
+			};
+		}
+
+		return {
+			status: res.status,
+			error: new Error(`Could not load ${url}`)
+		};
+	}
+</script>
+
 <script lang="ts">
 	import Counter from '$lib/components/Counter.svelte';
+	import CountStore from '$lib/stores/count';
+
+	export let count;
+
+	$CountStore = count.count;
 </script>
 
 <section>
@@ -17,6 +42,8 @@
 	<h2>
 		try editing <strong>src/routes/index.svelte</strong>
 	</h2>
+
+	Current count is {$CountStore}
 
 	<Counter />
 </section>

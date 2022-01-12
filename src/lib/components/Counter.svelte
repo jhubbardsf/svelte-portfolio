@@ -1,20 +1,41 @@
 <script lang="ts">
 	import { spring } from 'svelte/motion';
+	import CountStore from '$lib/stores/count';
+	import { session } from '$app/stores';
 
-	let count = 0;
+	console.log('Counter function1');
+	$: console.log({ $CountStore });
+	console.log('Counter function2');
 
 	const displayed_count = spring();
-	$: displayed_count.set(count);
+	$: displayed_count.set($CountStore);
 	$: offset = modulo($displayed_count, 1);
 
 	function modulo(n: number, m: number) {
 		// handle negative numbers
 		return ((n % m) + m) % m;
 	}
+
+	const increment = () => {
+		$CountStore += 1;
+		updateDB();
+	};
+
+	const decrement = () => {
+		$CountStore -= 1;
+		updateDB();
+	};
+
+	const updateDB = async () => {
+		const res = await fetch(`/api/count/${$session.user.uid}.json`, {
+			method: 'POST',
+			body: JSON.stringify($CountStore)
+		});
+	};
 </script>
 
 <div class="counter">
-	<button on:click={() => (count -= 1)} aria-label="Decrease the counter by one">
+	<button on:click={decrement} aria-label="Decrease the counter by one">
 		<svg aria-hidden="true" viewBox="0 0 1 1">
 			<path d="M0,0.5 L1,0.5" />
 		</svg>
@@ -27,7 +48,7 @@
 		</div>
 	</div>
 
-	<button on:click={() => (count += 1)} aria-label="Increase the counter by one">
+	<button on:click={increment} aria-label="Increase the counter by one">
 		<svg aria-hidden="true" viewBox="0 0 1 1">
 			<path d="M0,0.5 L1,0.5 M0.5,0 L0.5,1" />
 		</svg>
