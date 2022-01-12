@@ -33,9 +33,12 @@ export async function getSession(request: ServerRequest) {
 
 	console.log("session after decodeToken");
 
-	const { uid, name, email } = decodedToken;
-
-	return { user: { name, email, uid } };
+	if (decodedToken) {
+		const { uid, name, email } = decodedToken;
+		return { user: { name, email, uid } };
+	} else {
+		return { user: null };
+	}
 }
 
 export const handle: Handle = async ({ request, resolve }) => {
