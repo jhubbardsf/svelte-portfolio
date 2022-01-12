@@ -1,8 +1,9 @@
 <script lang="ts">
 	import '@fontsource/roboto';
+	import { googleSignIn } from '$lib/client/firebase';
 </script>
 
-<div class="google-login">
+<div class="google-login" on:click={() => googleSignIn()}>
 	<div class="icon">
 		<img src="google-icon.svg" alt="google-icon" />
 	</div>

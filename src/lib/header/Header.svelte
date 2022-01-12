@@ -2,16 +2,24 @@
 	import type { Tab } from '$lib/types';
 	import { page } from '$app/stores';
 	import Title from '$lib/utils/Title.svelte';
+	import { googleSignOut } from '$lib/client/firebase';
+	import { session } from '$app/stores';
 
 	const tabs = [
 		{ href: '/', title: 'Home' },
 		{ href: '/about', title: 'About' },
 		{ href: '/todos', title: 'Todos' },
-		{ href: '/counter', title: 'Counter' },
-		{ href: '/logout', title: 'Logout' }
+		{ href: '/counter', title: 'Counter' }
 	];
 
-	$: title = tabs.find((tab) => tab.href == $page.url.pathname).title;
+	$: title = tabs.find((tab) => tab.href == $page.url.pathname)?.title || 'No Tab';
+
+	export const signOutUser = () => {
+		console.log('signOutUser');
+		googleSignOut();
+	};
+
+	$: console.log('Header session', $session);
 </script>
 
 <Title {title} />
@@ -30,6 +38,11 @@
 					<a sveltekit:prefetch href={tab.href}>{tab.title}</a>
 				</li>
 			{/each}
+			{#if $session.user}
+				<li>
+					<a href="/" on:click={signOutUser}>Logout</a>
+				</li>
+			{/if}
 		</ul>
 	</nav>
 

@@ -1,12 +1,11 @@
-<script context="module" lang="ts">
-	export const prerender = true;
-</script>
-
 <script lang="ts">
+	import { session } from '$app/stores';
 	import Card from '$lib/components/Card.svelte';
 	import EmailLogin from '$lib/components/EmailLogin.svelte';
 	import GoogleLogin from '$lib/components/GoogleLogin.svelte';
 	import RegisterButton from '$lib/components/RegisterButton.svelte';
+
+	$: console.log('Index session', $session);
 </script>
 
 <section>

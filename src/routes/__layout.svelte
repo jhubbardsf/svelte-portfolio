@@ -1,7 +1,26 @@
+<script context="module" lang="ts">
+	import { initializeFirebase } from '$lib/client/firebase';
+	import { browser } from '$app/env';
+	export async function load({ url, session }) {
+		if (browser) {
+			console.log('__layout init fb');
+			initializeFirebase();
+		}
+		// if (!session.user) {
+		// 	return { redirect: '/', status: 302 };
+		// } else {
+		return { status: 200 };
+		// }
+	}
+</script>
+
 <script lang="ts">
 	import Header from '$lib/header/Header.svelte';
-	import Title from '$lib/utils/Title.svelte';
 	import '../app.css';
+	import { session } from '$app/stores';
+
+	console.log('__Layout Load');
+	$: console.log('__Layout Session', $session);
 </script>
 
 <Header />
