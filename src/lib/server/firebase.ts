@@ -18,6 +18,7 @@ if (process && process.env && process.env['VITE_FIREBASE_CLIENT_CONFIG']) {
 
 function initializeFirebase() {
     console.log("server initialize firebase");
+    console.log({FIREBASE_SERVER_CONFIG})
     if (!admin.apps.length) {
         console.log("admin.apps.length", admin.apps.length);
         const serviceAccount = JSON.parse(FIREBASE_SERVER_CONFIG);
