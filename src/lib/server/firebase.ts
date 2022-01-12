@@ -1,6 +1,6 @@
-import admin, { initializeApp } from 'firebase-admin';
-import type { DecodedIdToken } from 'firebase-admin/auth'
+import admin from 'firebase-admin';
 import { browser } from '$app/env';
+import { initializeApp } from 'firebase-admin/app';
 
 if (browser) {
     // Just in case. I want to know if this file spills into the client ASAP.
