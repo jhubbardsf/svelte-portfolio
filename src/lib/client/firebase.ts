@@ -25,7 +25,7 @@ export function initializeFirebase() {
         app = initializeApp(firebaseConfig);
         // db = getFirestore(app);
         // listenForAuthChanges();
-        watchStateChange();
+        // watchStateChange();
     }
 }
 
@@ -35,12 +35,30 @@ export const googleSignIn = () => {
         .then(async (result) => {
             // This gives you a Google Access Token. You can use it to access the Google API.
             const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
+            console.log({ credential });
             // The signed-in user info.
             const user = result.user;
+            const token = await user.getIdToken(true);
             // ...
 
             // await setToken(token);
+            console.log("User signed in", user);
+            session.update((oldSession) => {
+                console.log("Session before updating: ", oldSession);
+                if (oldSession.user) {
+                    setTokenFlag = false;
+                }
+                oldSession.user = {
+                    name: user.displayName,
+                    email: user.email,
+                    uid: user.uid
+                };
+                console.log("Session after updating: ", oldSession);
+                return oldSession;
+            });
+
+            console.log({ setTokenFlag });
+            setToken(token);
         }).catch((error) => {
             // Handle Errors here.
             const errorCode = error.code;
@@ -55,6 +73,7 @@ export const googleSignIn = () => {
 };
 
 export const googleSignOut = () => {
+    console.log("googleSignOut Function Call");
     const auth = getAuth();
     signOut(auth).then(async () => {
         // Sign-out successful.
@@ -70,6 +89,7 @@ export const googleSignOut = () => {
     });
 };
 
+let setTokenFlag = true;
 const watchStateChange = () => {
     const auth = getAuth();
     onAuthStateChanged(auth, async (user) => {
@@ -81,6 +101,9 @@ const watchStateChange = () => {
             console.log("User signed in (stateChange)", user);
             session.update((oldSession) => {
                 console.log("Session before updating: ", oldSession);
+                if (oldSession.user) {
+                    setTokenFlag = false;
+                }
                 oldSession.user = {
                     name: user.displayName,
                     email: user.email,
@@ -89,6 +112,8 @@ const watchStateChange = () => {
                 console.log("Session after updating: ", oldSession);
                 return oldSession;
             });
+
+            console.log({ setTokenFlag });
             const token = await user.getIdToken();
             setToken(token);
         } else {
@@ -100,13 +125,15 @@ const watchStateChange = () => {
 }
 
 export async function setToken(token: string) {
-    console.log("setToken");
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify({ token })
-    };
-    let res = await fetch('/api/login.json', options);
+    if (setTokenFlag) {
+        console.log("setToken");
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify({ token })
+        };
+        let res = await fetch('/api/login.json', options);
+    }
 }

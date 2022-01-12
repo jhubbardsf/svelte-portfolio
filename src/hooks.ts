@@ -47,7 +47,7 @@ export const handle: Handle = async ({ request, resolve }) => {
 	const cookies = cookie.parse(request.headers.cookie || '');
 
 	// before endpoint call
-	// request.locals.token = cookies[COOKIE_NAME];
+	request.locals.token = cookies[COOKIE_NAME];
 	console.log("request.locals.token", request.locals.token);
 	// request.locals.decodedToken = await decodeToken(request.locals.toke);
 
