@@ -80,53 +80,48 @@ export const googleSignOut = () => {
     console.log("googleSignOut Function Call");
     const auth = getAuth();
     signOut(auth).then(async () => {
-        // Sign-out successful.
-        // fetch('/api/logout.json', { method: 'GET' })
         await setToken('');
         session.set({});
-        // session.update((oldSession) => {
-        //     oldSession.user = null;
-        //     return oldSession;
-        // });
+        goto('/');
     }).catch((error) => {
-        // An error happened.
+        console.log(error);
     });
 };
 
 let setTokenFlag = true;
-const watchStateChange = () => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/firebase.User
-            const uid = user.uid;
-            // ...
-            console.log("User signed in (stateChange)", user);
-            session.update((oldSession) => {
-                console.log("Session before updating: ", oldSession);
-                if (oldSession.user) {
-                    setTokenFlag = false;
-                }
-                oldSession.user = {
-                    name: user.displayName,
-                    email: user.email,
-                    uid: user.uid
-                };
-                console.log("Session after updating: ", oldSession);
-                return oldSession;
-            });
+// const watchStateChange = () => {
+//     const auth = getAuth();
+//     onAuthStateChanged(auth, async (user) => {
+//         if (user) {
+//             // User is signed in, see docs for a list of available properties
+//             // https://firebase.google.com/docs/reference/js/firebase.User
+//             const uid = user.uid;
+//             // ...
+//             console.log("User signed in (stateChange)", user);
+//             session.update((oldSession) => {
+//                 console.log("Session before updating: ", oldSession);
+//                 if (oldSession.user) {
+//                     setTokenFlag = false;
+//                 }
+//                 oldSession.user = {
+//                     name: user.displayName,
+//                     email: user.email,
+//                     uid: user.uid
+//                 };
+//                 console.log("Session after updating: ", oldSession);
+//                 return oldSession;
+//             });
 
-            console.log({ setTokenFlag });
-            const token = await user.getIdToken();
-            setToken(token);
-        } else {
-            // User is signed out
-            // ...
-            console.log("User not signed in yet (stateChange)");
-        }
-    });
-}
+//             console.log({ setTokenFlag });
+//             const token = await user.getIdToken();
+//             setToken(token);
+//         } else {
+//             // User is signed out
+//             // ...
+//             console.log("User not signed in yet (stateChange)");
+//         }
+//     });
+// }
 
 export async function setToken(token: string) {
     if (setTokenFlag) {

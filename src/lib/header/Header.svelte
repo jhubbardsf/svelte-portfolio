@@ -5,19 +5,20 @@
 	import { googleSignOut } from '$lib/client/firebase';
 	import { session } from '$app/stores';
 
+	export function signOutUser() {
+		console.log('signOutUser');
+		googleSignOut();
+	}
+
 	const tabs = [
-		{ href: '/', title: 'Home' },
-		{ href: '/about', title: 'About' },
-		{ href: '/todos', title: 'Todos' },
-		{ href: '/counter', title: 'Counter' }
+		{ href: '/', title: 'Home', public: true, onClick: null },
+		{ href: '/about', title: 'About', public: true, onClick: null },
+		{ href: '/todos', title: 'Todos', public: false, onClick: null },
+		{ href: '/counter', title: 'Counter', public: false, onClick: null },
+		{ href: '#', title: 'Logout', public: false, onClick: signOutUser }
 	];
 
 	$: title = tabs.find((tab) => tab.href == $page.url.pathname)?.title || 'No Tab';
-
-	export const signOutUser = () => {
-		console.log('signOutUser');
-		googleSignOut();
-	};
 
 	$: console.log('Header session', $session);
 </script>
@@ -34,15 +35,12 @@
 	<nav>
 		<ul>
 			{#each tabs as tab}
-				<li class:active={$page.url.pathname === tab.href}>
-					<a sveltekit:prefetch href={tab.href}>{tab.title}</a>
-				</li>
+				{#if tab.public || $session.user}
+					<li class:active={$page.url.pathname === tab.href}>
+						<a sveltekit:prefetch on:click={tab.onClick} href={tab.href}>{tab.title}</a>
+					</li>
+				{/if}
 			{/each}
-			{#if $session.user}
-				<li>
-					<a href="/" on:click={signOutUser}>Logout</a>
-				</li>
-			{/if}
 		</ul>
 	</nav>
 
