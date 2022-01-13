@@ -37,7 +37,11 @@ export async function getSession(request: ServerRequest) {
 		const { uid, name, email } = decodedToken;
 		return { user: { name, email, uid } };
 	} else {
-		return { user: null };
+		return {
+			user: null,
+			token: token,
+			"request.locals.token": request.locals.token
+		};
 	}
 }
 
@@ -60,7 +64,7 @@ export const handle: Handle = async ({ request, resolve }) => {
 		request.locals.decodedToken = await decodeToken(token);
 	}
 
-	const secure = process.env.NODE_ENV === 'production';
+	// const secure = process.env.NODE_ENV === 'production';
 	// const secure = false;
 	const maxAge = 7_200; // (3600 seconds / hour) * 2 hours
 	const sameSite = 'Lax';
