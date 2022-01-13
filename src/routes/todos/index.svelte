@@ -1,10 +1,27 @@
 <script context="module" lang="ts">
+	export async function load({ params, fetch, session, stuff }) {
+		const url = `api/todo/${session.user.uid}.json`;
+		const res = await fetch(url);
+
+		if (res.ok) {
+			console.log('res ok');
+			return {
+				props: {
+					count: await res.json()
+				}
+			};
+		}
+
+		return {
+			status: res.status,
+			error: new Error(`Could not load ${url}`)
+		};
+	}
 </script>
 
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte';
 	import ToDo from '$lib/components/ToDo.svelte';
-	import Title from '$lib/utils/Title.svelte';
 </script>
 
 <section>
@@ -24,6 +41,7 @@
 		font-family: 'Roboto';
 		h1 {
 			margin-block-start: 0em;
+			margin-bottom: 15px;
 		}
 	}
 </style>
