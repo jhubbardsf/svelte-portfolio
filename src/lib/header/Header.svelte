@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Tab } from '$lib/types';
 	import { page } from '$app/stores';
 	import Title from '$lib/utils/Title.svelte';
 	import { googleSignOut } from '$lib/client/firebase';
 	import { session } from '$app/stores';
+	import { capitalize } from '$lib/capitalize';
 
 	export function signOutUser() {
 		console.log('signOutUser');
@@ -17,7 +17,9 @@
 		{ href: '#', title: 'Logout', public: false, onClick: signOutUser }
 	];
 
-	$: title = tabs.find((tab) => tab.href == $page.url.pathname)?.title || 'No Tab';
+	let backUpTitle = capitalize($page.url.pathname.substring(1));
+
+	$: title = tabs.find((tab) => tab.href == $page.url.pathname)?.title || backUpTitle || 'No Title';
 
 	$: console.log('Header session', $session);
 </script>

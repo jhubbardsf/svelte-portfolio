@@ -4,11 +4,7 @@ import { goto } from '$app/navigation';
 import { session } from '$app/stores';
 import { browser } from '$app/env';
 import {
-    getFirestore, collection, onSnapshot,
-    addDoc, deleteDoc, doc,
-    query, where,
-    orderBy, serverTimestamp,
-    updateDoc
+    getFirestore
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -31,6 +27,10 @@ export function initializeFirebase() {
         app = initializeApp(firebaseConfig);
         db = getFirestore(app);
     }
+}
+
+export const setterTokenFlag = (set: boolean) => {
+    setTokenFlag = !setTokenFlag;
 }
 
 export const googleSignIn = () => {
@@ -88,8 +88,8 @@ export const googleSignOut = () => {
     });
 };
 
-let setTokenFlag = true;
-// const watchStateChange = () => {
+export let setTokenFlag = true;
+// export const watchStateChange = () => {
 //     const auth = getAuth();
 //     onAuthStateChanged(auth, async (user) => {
 //         if (user) {

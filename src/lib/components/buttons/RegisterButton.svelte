@@ -1,8 +1,10 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+	import { session } from '$app/stores';
 	import '@fontsource/roboto';
 </script>
 
-<div class="register-login">
+<div class="register-login" on:click={() => goto('/register')}>
 	<p>Register with email</p>
 </div>
 
