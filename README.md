@@ -3,6 +3,7 @@ This is a app showing different SvelteKite and FireBase functionality. Currently
 
 ## Live Example app
 Check app out here at the [live preview](https://josh-sveltekit.netlify.app/).
+
 Hosted on [netlify](https://netlify.com).
 
 ## Running locally
