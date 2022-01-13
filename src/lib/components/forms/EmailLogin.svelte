@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { session } from '$app/stores';
 	import { emailSignIn } from '$lib/client/emailAuthentication';
-	import '@fontsource/roboto';
 
 	let username: string;
 	let password: string;

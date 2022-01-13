@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte';
-	import '@fontsource/roboto';
 	import { registerAccount } from '$lib/client/emailAuthentication';
 
 	let user = {

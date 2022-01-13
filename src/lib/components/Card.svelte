@@ -1,7 +1,3 @@
-<script lang="ts">
-	import '@fontsource/roboto';
-</script>
-
 <div class="card">
 	<slot />
 </div>
