@@ -1,5 +1,4 @@
 <script lang="ts">
-	import '@fontsource/roboto';
 	import { googleSignIn } from '$lib/client/firebase';
 </script>
 
