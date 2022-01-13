@@ -30,7 +30,6 @@
 <style lang="scss">
 	form {
 		text-align: center;
-		font-family: 'Roboto';
 		padding-bottom: 18px;
 		border-bottom: 2px solid rgba(0, 0, 0, 1);
 		.form-field {

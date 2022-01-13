@@ -25,6 +25,5 @@
 		justify-content: center;
 		align-items: center;
 		flex: 1;
-		font-family: 'Roboto';
 	}
 </style>

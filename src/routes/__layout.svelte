@@ -43,7 +43,6 @@
 		max-width: 1024px;
 		margin: 0 auto;
 		box-sizing: border-box;
-		font-family: 'Roboto';
 	}
 
 	footer {
@@ -52,7 +51,6 @@
 		justify-content: center;
 		align-items: center;
 		padding: 40px;
-		font-family: 'Roboto';
 	}
 
 	footer a {

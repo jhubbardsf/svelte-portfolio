@@ -4,7 +4,7 @@
 
 <div class="google-login" on:click={() => googleSignIn()}>
 	<div class="icon">
-		<img src="google-icon.svg" alt="google-icon" />
+		<img src="google-icon.png" alt="google-icon" />
 	</div>
 	<p>Sign in with Google</p>
 </div>
@@ -20,7 +20,6 @@
 		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 		p {
 			color: #555555;
-			font-family: 'Roboto';
 			font-weight: bold;
 			margin: auto;
 			padding: 0;
