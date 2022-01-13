@@ -60,7 +60,8 @@ export const handle: Handle = async ({ request, resolve }) => {
 		request.locals.decodedToken = await decodeToken(token);
 	}
 
-	const secure = process.env.NODE_ENV === 'production';
+	// const secure = process.env.NODE_ENV === 'production';
+	const secure = false;
 	const maxAge = 7_200; // (3600 seconds / hour) * 2 hours
 	const sameSite = 'Lax';
 	const setCookieValue = `${COOKIE_NAME}=${token || ''}; Max-Age=${maxAge}; Path=/; ${secure ? 'Secure;' : ''
