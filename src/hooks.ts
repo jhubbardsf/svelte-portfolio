@@ -29,8 +29,10 @@ export async function getSession(request: ServerRequest) {
 	const token = cookies[COOKIE_NAME];
 
 	console.log("session before decodeToken");
-	const decodedToken = await decodeToken(token);
-
+	let decodedToken;
+	if (token) {
+		decodedToken = await decodeToken(token);
+	}
 	console.log("session after decodeToken");
 
 	if (decodedToken) {
