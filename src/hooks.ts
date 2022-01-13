@@ -29,21 +29,15 @@ export async function getSession(request: ServerRequest) {
 	const token = cookies[COOKIE_NAME];
 
 	console.log("session before decodeToken");
-	let decodedToken;
-	if (token) {
-		decodedToken = await decodeToken(token);
-	}
+	const decodedToken = await decodeToken(token);
+
 	console.log("session after decodeToken");
 
 	if (decodedToken) {
 		const { uid, name, email } = decodedToken;
 		return { user: { name, email, uid } };
 	} else {
-		return {
-			user: null,
-			token: token,
-			request: request
-		};
+		return { user: null };
 	}
 }
 
@@ -66,10 +60,9 @@ export const handle: Handle = async ({ request, resolve }) => {
 		request.locals.decodedToken = await decodeToken(token);
 	}
 
-	// const secure = process.env.NODE_ENV === 'production';
-	// const secure = false;
+	const secure = process.env.NODE_ENV === 'production';
 	const maxAge = 7_200; // (3600 seconds / hour) * 2 hours
-	const sameSite = 'Lax';
+	const sameSite = 'Strict';
 	const setCookieValue = `${COOKIE_NAME}=${token || ''}; Max-Age=${maxAge}; Path=/; ${secure ? 'Secure;' : ''
 		} HttpOnly; SameSite=${sameSite}`;
 
