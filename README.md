@@ -3,12 +3,10 @@ This is a app showing different SvelteKite and FireBase functionality. Currently
 
 ## Live Example app
 Check app out here at the [live preview](https://josh-sveltekit.netlify.app/).
+Hosted on [netlify](https://netlify.com).
 
 ## Running locally
 
 If you want to try running it locally you'll need to create a firebase account, create a new web project, and enable authentication for email and google (more authentication methods coming later). 
 
 (Rest of instructions coming)
-
-## Hosting
-Hosted on [netlify](https://netlify.com).
