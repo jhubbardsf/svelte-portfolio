@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte';
-	import '@fontsource/roboto';
 	import { registerAccount } from '$lib/client/emailAuthentication';
 
 	let user = {
@@ -78,14 +77,12 @@
 		justify-content: center;
 		align-items: center;
 		flex: 1;
-		font-family: 'Roboto';
 		h1 {
 			margin-block-start: 0em;
 			width: 100%;
 		}
 		form {
 			text-align: left;
-			font-family: 'Roboto';
 			padding-bottom: 18px;
 			.two-fields {
 				display: grid;

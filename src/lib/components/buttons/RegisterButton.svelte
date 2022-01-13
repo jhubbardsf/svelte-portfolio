@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { session } from '$app/stores';
-	import '@fontsource/roboto';
 </script>
 
 <div class="register-login" on:click={() => goto('/register')}>
@@ -20,7 +19,6 @@
 		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 		p {
 			color: #555555;
-			font-family: 'Roboto';
 			margin: auto;
 			font-weight: bold;
 			padding: 0;

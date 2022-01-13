@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { session } from '$app/stores';
 	import { emailSignIn } from '$lib/client/emailAuthentication';
-	import '@fontsource/roboto';
 
 	let username: string;
 	let password: string;
@@ -31,7 +30,6 @@
 <style lang="scss">
 	form {
 		text-align: center;
-		font-family: 'Roboto';
 		padding-bottom: 18px;
 		border-bottom: 2px solid rgba(0, 0, 0, 1);
 		.form-field {

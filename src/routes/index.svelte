@@ -1,5 +1,8 @@
+<script context="module">
+	export const prerender = true;
+</script>
+
 <script lang="ts">
-	import '@fontsource/roboto';
 	import { session } from '$app/stores';
 	import WelcomeCard from '$lib/components/WelcomeCard.svelte';
 	import SignInCard from '$lib/components/SignInCard.svelte';
@@ -22,6 +25,5 @@
 		justify-content: center;
 		align-items: center;
 		flex: 1;
-		font-family: 'Roboto';
 	}
 </style>
