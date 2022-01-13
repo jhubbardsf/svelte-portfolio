@@ -62,7 +62,7 @@ export const handle: Handle = async ({ request, resolve }) => {
 
 	const secure = process.env.NODE_ENV === 'production';
 	const maxAge = 7_200; // (3600 seconds / hour) * 2 hours
-	const sameSite = 'Strict';
+	const sameSite = 'Lax';
 	const setCookieValue = `${COOKIE_NAME}=${token || ''}; Max-Age=${maxAge}; Path=/; ${secure ? 'Secure;' : ''
 		} HttpOnly; SameSite=${sameSite}`;
 
