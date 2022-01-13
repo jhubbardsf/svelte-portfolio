@@ -40,7 +40,7 @@ export async function getSession(request: ServerRequest) {
 		return {
 			user: null,
 			token: token,
-			"request.locals.token": request.locals.token
+			request: request
 		};
 	}
 }
