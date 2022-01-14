@@ -3,9 +3,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signO
 import { goto } from '$app/navigation';
 import { session } from '$app/stores';
 import { browser } from '$app/env';
-import {
-    getFirestore
-} from 'firebase/firestore'
+import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
     apiKey: "AIzaSyB92RJx79Lv4FOgAO_vE4W3TYlU-DoyvV8",
@@ -26,12 +24,31 @@ export function initializeFirebase() {
     if (!app) {
         app = initializeApp(firebaseConfig);
         db = getFirestore(app);
+        // startWatcher();
     }
 }
 
 export const setterTokenFlag = (set: boolean) => {
     setTokenFlag = !setTokenFlag;
 }
+
+// const startWatcher = () => {
+//     console.log("watcher started");
+//     const auth = getAuth();
+//     onAuthStateChanged(auth, (user) => {
+//         if (user) {
+//             // User is signed in, see docs for a list of available properties
+//             // https://firebase.google.com/docs/reference/js/firebase.User
+//             const uid = user.uid;
+//             console.log("user logged in");
+//             // ...
+//         } else {
+//             // User is signed out
+//             // ...
+//             console.log("user not logged in");
+//         }
+//     });
+// }
 
 export const googleSignIn = () => {
     const auth = getAuth();

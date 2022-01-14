@@ -7,7 +7,7 @@
 			console.log('res ok');
 			return {
 				props: {
-					count: await res.json()
+					todoReturn: await res.json()
 				}
 			};
 		}
@@ -22,6 +22,11 @@
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte';
 	import ToDo from '$lib/components/ToDo.svelte';
+	import TodoStore from '$lib/stores/todos';
+
+	export let todoReturn;
+	$TodoStore = todoReturn.todos;
+	$: console.log($TodoStore);
 </script>
 
 <section>

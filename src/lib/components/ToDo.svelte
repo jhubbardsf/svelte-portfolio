@@ -1,21 +1,16 @@
-<script lang="ts">
+<script>
 	import { FieldValue } from 'firebase/firestore';
+	import TodoStore from '$lib/stores/todos';
 
-	let newToDo: string;
+	console.log('component');
+	$: console.log($TodoStore);
+	let newToDo;
+	let undoneTodos = $TodoStore.filter((todo) => todo.completed == false);
+	let completedToDos = $TodoStore.filter((todo) => todo.completed == true);
 
 	const addToDo = () => {
 		console.log('Adding todo');
 	};
-
-	let todos = [
-		'Take out garbage',
-		'Water plants',
-		'Do Dishes',
-		'Empty litter',
-		'Finish folding laundry',
-		"Ask emmy about how she's feeling",
-		'This is supposed to be a very long todo to test grid'
-	];
 </script>
 
 <form>
@@ -23,24 +18,34 @@
 		<input type="string" id="newToDo" placeholder="New to do item" />
 		<button>Add</button>
 	</div>
-	<!-- <ul> -->
-	{#each todos as todo}
+	{#each undoneTodos as todo}
+		<!-- Not Completed -->
 		<div class="grid">
-			<!-- <li class="grid"> -->
-
 			<div class="check-container">
 				<img src="circle.png" alt="to do item" />
 			</div>
 			<div class="todo-text">
-				<p>{todo}</p>
+				<p>{todo.text}</p>
 			</div>
 			<div class="delete-container">
 				<img class="delete" src="delete.png" alt="delete" />
 			</div>
-			<!-- </li> -->
 		</div>
 	{/each}
-	<!-- </ul> -->
+	{#each completedToDos as todo}
+		<!-- Completed -->
+		<div class="grid">
+			<div class="check-container">
+				<img src="check-mark.png" alt="to do item" />
+			</div>
+			<div class="todo-text">
+				<p>{todo.text}</p>
+			</div>
+			<div class="delete-container">
+				<img class="delete" src="delete.png" alt="delete" />
+			</div>
+		</div>
+	{/each}
 </form>
 
 <style lang="scss">
@@ -85,9 +90,10 @@
 			.check-container {
 				cursor: pointer;
 				margin: auto;
+				height: 17px;
 				grid-column: 1/2;
 				img {
-					height: 17px;
+					height: 100%;
 				}
 			}
 			.todo-text {

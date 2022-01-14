@@ -1,5 +1,10 @@
 import {
     doc,
+    getFirestore, collection, onSnapshot,
+    addDoc, deleteDoc,
+    query, where, getDocs,
+    orderBy, serverTimestamp,
+    updateDoc,
     setDoc,
     getDoc
 } from 'firebase/firestore';
@@ -12,36 +17,33 @@ export async function get({ params }) {
     console.log({ slug });
     console.log({ db });
 
-    const docRef = doc(db, "todos", slug);
-    const docSnap = await getDoc(docRef);
+    let todos = [];
 
-    let todos;
-
-    if (docSnap.exists()) {
-        count = docSnap.data().count;
-        console.log("Document data:", docSnap.data());
-    } else {
-        count = -1;
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-    }
+    const querySnapshot = await getDocs(collection(db, "todos", slug, "list"));
+    querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+        todos.push(doc.data());
+    });
 
     return {
         status: 200,
-        body: JSON.stringify({ count })
+        body: JSON.stringify({ todos })
     }
 }
 
 export const post = async ({ params, body }) => {
-    // const { slug } = params;
-    // console.log({ slug });
-    // console.log(slug);
-    // console.log(body);
 
-    // await setDoc(doc(db, "counter", slug), { "count": parseInt(body) });
+    const { slug } = params;
+    console.log({ slug });
+    console.log(slug);
+    console.log(body);
 
-    // return {
-    //     status: 200,
-    //     body: 'OK'
-    // }
+    await setDoc(doc(db, "counter", slug), { "count": parseInt(body) });
+
+    return {
+        status: 200,
+        body: 'OK'
+    }
+
 }
