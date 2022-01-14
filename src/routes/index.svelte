@@ -1,7 +1,3 @@
-<script context="module">
-	export const prerender = true;
-</script>
-
 <script lang="ts">
 	import { session } from '$app/stores';
 	import WelcomeCard from '$lib/components/WelcomeCard.svelte';
