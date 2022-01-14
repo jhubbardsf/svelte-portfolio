@@ -6,21 +6,6 @@ import cookie from 'cookie';
 
 const COOKIE_NAME = 'portfolio';
 
-// export const getSession: GetSession = async (request: ServerRequest) => {
-// 	console.log("In getSession");
-// 	console.log("token: ", request.locals.token);
-
-// 	let user;
-// 	const token = request.locals.token;
-// 	if (token) {
-// 		console.log('decode token')
-// 		user = decodeToken(token);
-// 	}
-
-
-// 	return { user: user }
-// }
-
 export async function getSession(request: ServerRequest) {
 	console.log("In getSession");
 	// const decodedToken: DecodedIdToken | null = request.locals.decodedToken;
