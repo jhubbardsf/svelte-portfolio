@@ -2,11 +2,27 @@
 	import TodoStore from '$lib/stores/todoStore';
 	import ToDoItem from './ToDoItem.svelte';
 	import { session } from '$app/stores';
-	import type { Todo } from '$lib/types';
 	import { addTodo } from '$lib/client/firebase';
-	import { v4 as uuidv4 } from 'uuid';
 	import { Timestamp } from 'firebase/firestore';
-	import Card from '../Card.svelte';
+	import { quintOut } from 'svelte/easing';
+	import { crossfade } from 'svelte/transition';
+	import { flip } from 'svelte/animate';
+
+	const [send, receive] = crossfade({
+		fallback(node, params) {
+			const style = getComputedStyle(node);
+			const transform = style.transform === 'none' ? '' : style.transform;
+
+			return {
+				duration: 600,
+				easing: quintOut,
+				css: (t) => `
+					transform: ${transform} scale(${t});
+					opacity: ${t}
+				`
+			};
+		}
+	});
 
 	console.log('todo component $todostore');
 	$: console.log($TodoStore);
@@ -42,14 +58,14 @@
 	<!-- <div class="todos" bind:this={list}> -->
 	<div class="todo-item2">
 		{#each $TodoStore.filter((todo) => !todo.completed) as todo (todo.id)}
-			<div class="todo-item">
+			<div class="todo-item" in:receive={{ key: todo.id }} out:send={{ key: todo.id }} animate:flip>
 				<ToDoItem {todo} />
 			</div>
 		{/each}
 	</div>
 	<div class="todo-item3">
 		{#each $TodoStore.filter((todo) => todo.completed) as todo (todo.id)}
-			<div class="todo-item">
+			<div class="todo-item" in:receive={{ key: todo.id }} out:send={{ key: todo.id }} animate:flip>
 				<ToDoItem {todo} />
 			</div>
 		{/each}
