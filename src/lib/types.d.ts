@@ -17,4 +17,5 @@ export interface Todo {
 	completed: boolean,
 	text: string,
 	completed_at: Timestamp
+	id: String
 }

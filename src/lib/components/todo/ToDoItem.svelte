@@ -1,15 +1,22 @@
 <script>
+	// import type { Todo } from '$lib/types';
 	import { session } from '$app/stores';
-	import { deleteTodo } from '$lib/client/firebase';
+	import { deleteTodo, updateTodo } from '$lib/client/firebase';
 	import TodoStore from '$lib/stores/todoStore';
 
+	// export let todo: Todo;
 	export let todo;
 
-	const completedChange = (currentTodo) => {
-		TodoStore.flipComplete(currentTodo);
+	// const completedChange = async (currentTodo: Todo) => {
+	const completedChange = async (currentTodo) => {
+		console.log('completeChange');
+		currentTodo.completed = !currentTodo.completed;
 		$TodoStore = $TodoStore;
+
+		let res = await updateTodo(currentTodo, $session.user.uid);
 	};
 
+	// async function remove(todo: Todo) {
 	async function remove(todo) {
 		let res = deleteTodo(todo.id, $session.user.uid);
 

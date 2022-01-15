@@ -18,10 +18,7 @@
 	];
 
 	let backUpTitle = capitalize($page.url.pathname.substring(1));
-
 	$: title = tabs.find((tab) => tab.href == $page.url.pathname)?.title || backUpTitle || 'No Title';
-
-	// $: console.log('Header session', $session);
 </script>
 
 <Title {title} />

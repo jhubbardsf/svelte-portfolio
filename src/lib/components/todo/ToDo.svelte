@@ -1,62 +1,33 @@
-<script>
+<script lang="ts">
 	import TodoStore from '$lib/stores/todoStore';
 	import ToDoItem from './ToDoItem.svelte';
-	import { fade } from 'svelte/transition';
-	import { onMount } from 'svelte';
-	import { Timestamp } from 'firebase/firestore';
-	import { quintOut } from 'svelte/easing';
-	import { crossfade } from 'svelte/transition';
-	import myCustomStore from '$lib/stores/myCustomStore';
 	import { session } from '$app/stores';
-
-	console.log(myCustomStore.yeah());
-	console.log('1', $myCustomStore);
-	$: console.log('2', $myCustomStore);
-
-	console.log(myCustomStore.increment());
-	console.log(myCustomStore.increment());
-	// console.log($myCustomStore);
-
-	const [send, receive] = crossfade({
-		duration: (d) => Math.sqrt(d * 200),
-
-		fallback(node, params) {
-			const style = getComputedStyle(node);
-			const transform = style.transform === 'none' ? '' : style.transform;
-
-			return {
-				duration: 600,
-				easing: quintOut,
-				css: (t) => `
-					transform: ${transform} scale(${t});
-					opacity: ${t}
-				`
-			};
-		}
-	});
+	import type { Todo } from '$lib/types';
+	import { addTodo } from '$lib/client/firebase';
+	import { v4 as uuidv4 } from 'uuid';
+	import { Timestamp } from 'firebase/firestore';
+	import Card from '../Card.svelte';
 
 	console.log('todo component $todostore');
 	$: console.log($TodoStore);
 
-	let newToDo;
+	let newToDo: any;
 	let i = 1;
 	const handleSubmit = async () => {
-		console.log('Adding todo2');
-		console.log({ $session });
-		let res = await fetch(`api/todo/${$session.user.uid}.json`, { method: 'POST', body: newToDo });
-		if (res.ok) {
-			$TodoStore.push(newToDo);
-			$TodoStore = $TodoStore;
-			console.log('added');
-		} else {
-			console.log(res);
-		}
-		// TodoStore.add({
-		// 	created_at: Timestamp,
-		// 	text: newToDo,
-		// 	completed: false,
-		// 	id: i++
-		// });
+		let uuid = await addTodo(newToDo, $session.user.uid);
+
+		console.log('ToDo', { uuid });
+		console.log({ newToDo });
+		$TodoStore = [
+			...$TodoStore,
+			{
+				created_at: Timestamp.now(),
+				completed: false,
+				text: newToDo,
+				id: uuid
+			}
+		];
+		newToDo = '';
 		// $TodoStore = $TodoStore;
 	};
 </script>

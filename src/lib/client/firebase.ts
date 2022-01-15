@@ -164,10 +164,25 @@ export async function setToken(token: string) {
     }
 }
 
+export async function getTodos(uuid) {
+    ``
+}
+
+export async function addTodo(text, uid) {
+    let newToDo = { text: text, completed: false, created_at: Timestamp.now() }
+
+    let colRef = collection(db, "todos", uid, "list")
+    let docRef = await addDoc(colRef, newToDo);
+    console.log("Document written with ID: ", docRef.id);
+    return docRef.id;
+}
+
 export async function deleteTodo(document, uid) {
-    const auth = getAuth();
+    await deleteDoc(doc(db, "todos", uid, "list", document));
+}
 
-    let res = await deleteDoc(doc(db, "todos", uid, "list", document));
+export async function updateTodo(document: any, uid: string) {
+    const docRef = doc(db, "todos", uid, "list", document.id);
+    await setDoc(docRef, document);
 
-    return (res);
 }

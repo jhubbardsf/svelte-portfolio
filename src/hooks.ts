@@ -8,15 +8,10 @@ const COOKIE_NAME = 'portfolio';
 
 export async function getSession(request: ServerRequest) {
 	console.log("In getSession");
-	// const decodedToken: DecodedIdToken | null = request.locals.decodedToken;
-	// console.log({ decodedToken });
 	const cookies = cookie.parse(request.headers.cookie || '');
 	const token = cookies[COOKIE_NAME];
 
-	console.log("session before decodeToken");
 	const decodedToken = await decodeToken(token);
-
-	console.log("session after decodeToken");
 
 	if (decodedToken) {
 		const { uid, name, email } = decodedToken;
@@ -28,22 +23,16 @@ export async function getSession(request: ServerRequest) {
 
 export const handle: Handle = async ({ request, resolve }) => {
 	console.log("In handle");
-	// console.log("Handle request: ", request);
 	const cookies = cookie.parse(request.headers.cookie || '');
 
 	// before endpoint call
 	request.locals.token = cookies[COOKIE_NAME];
-	// console.log("request.locals.token", request.locals.token);
-	// request.locals.decodedToken = await decodeToken(request.locals.toke);
 
 	// endpoint call
 	const response = await resolve(request);
 
 	// after endpoint call
 	const token = request.locals.token;
-	if (token) {
-		request.locals.decodedToken = await decodeToken(token);
-	}
 
 	const secure = process.env.NODE_ENV === 'production';
 	const maxAge = 7_200; // (3600 seconds / hour) * 2 hours

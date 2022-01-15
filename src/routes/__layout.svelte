@@ -1,15 +1,18 @@
 <script context="module" lang="ts">
 	import { initializeFirebase } from '$lib/client/firebase';
 	import { browser } from '$app/env';
-	export async function load({ url, session }) {
+	export async function load({ url }) {
 		if (browser) {
 			console.log('__layout init fb');
 			initializeFirebase();
 		}
-		// if (!session.user) {
-		// 	return { redirect: '/', status: 302 };
-		// } else {
-		return { status: 200 };
+
+		console.log({ url });
+		return {
+			props: {
+				key: url.pathname
+			}
+		};
 		// }
 	}
 </script>
@@ -18,16 +21,20 @@
 	import Header from '$lib/header/Header.svelte';
 	import '../app.css';
 	import { session } from '$app/stores';
+	import { fly } from 'svelte/transition';
 
 	console.log('__Layout Load');
-	// $: console.log('__Layout Session', $session);
+	import PageTransition from '$lib/components/PageTransition.svelte';
+	export let key: string;
 </script>
 
 <Header />
 
-<main>
-	<slot />
-</main>
+<PageTransition refresh={key}>
+	<main>
+		<slot />
+	</main>
+</PageTransition>
 
 <footer>
 	<!-- <p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p> -->

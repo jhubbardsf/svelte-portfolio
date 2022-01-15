@@ -26,9 +26,6 @@
 
 	export let todoReturn: { todos: [] };
 	$TodoStore = todoReturn.todos;
-	// $TodoStore.sort(function (a, b) {
-	// 	return a.completed ? 1 : -1;
-	// });
 	$: console.log({ $TodoStore });
 </script>
 
