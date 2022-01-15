@@ -18,11 +18,11 @@ if (process && process.env && process.env['VITE_FIREBASE_CLIENT_CONFIG']) {
 
 function initializeFirebase() {
     console.log("server initialize firebase");
-    console.log({FIREBASE_SERVER_CONFIG})
+    // console.log({FIREBASE_SERVER_CONFIG})
     if (!admin.apps.length) {
         console.log("admin.apps.length", admin.apps.length);
         const serviceAccount = JSON.parse(FIREBASE_SERVER_CONFIG);
-        console.log("serviceAccount", serviceAccount);
+        // console.log("serviceAccount", serviceAccount);
         initializeApp({
             credential: admin.credential.cert(serviceAccount),
             databaseURL: `https://${serviceAccount.project_id}.firebaseio.com`
@@ -31,12 +31,12 @@ function initializeFirebase() {
 }
 
 export async function decodeToken(token: string) {
-    console.log("decodeToken Function (token)", token);
+    // console.log("decodeToken Function (token)", token);
     if (!token || token === 'null' || token === 'undefined') return null;
     try {
         initializeFirebase();
         const isVerified = await admin.auth().verifyIdToken(token);
-        console.log("isVerified", isVerified);
+        // console.log("isVerified", isVerified);
         return isVerified;
     } catch (err) {
         console.log("err", err);

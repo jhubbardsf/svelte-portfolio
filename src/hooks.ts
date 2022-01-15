@@ -28,12 +28,12 @@ export async function getSession(request: ServerRequest) {
 
 export const handle: Handle = async ({ request, resolve }) => {
 	console.log("In handle");
-	console.log("Handle request: ", request);
+	// console.log("Handle request: ", request);
 	const cookies = cookie.parse(request.headers.cookie || '');
 
 	// before endpoint call
 	request.locals.token = cookies[COOKIE_NAME];
-	console.log("request.locals.token", request.locals.token);
+	// console.log("request.locals.token", request.locals.token);
 	// request.locals.decodedToken = await decodeToken(request.locals.toke);
 
 	// endpoint call

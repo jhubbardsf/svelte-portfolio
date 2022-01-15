@@ -20,7 +20,7 @@
 	import { session } from '$app/stores';
 
 	console.log('__Layout Load');
-	$: console.log('__Layout Session', $session);
+	// $: console.log('__Layout Session', $session);
 </script>
 
 <Header />

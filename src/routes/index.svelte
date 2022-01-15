@@ -3,7 +3,7 @@
 	import WelcomeCard from '$lib/components/WelcomeCard.svelte';
 	import SignInCard from '$lib/components/SignInCard.svelte';
 
-	$: console.log('Index session', $session);
+	// $: console.log('Index session', $session);
 </script>
 
 <section>

@@ -3,7 +3,17 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signO
 import { goto } from '$app/navigation';
 import { session } from '$app/stores';
 import { browser } from '$app/env';
-import { getFirestore } from 'firebase/firestore'
+import {
+    doc,
+    getFirestore, collection, onSnapshot,
+    addDoc, deleteDoc,
+    query, where, getDocs,
+    orderBy, serverTimestamp,
+    updateDoc,
+    setDoc,
+    getDoc,
+    Timestamp,
+} from 'firebase/firestore';
 
 const firebaseConfig = {
     apiKey: "AIzaSyB92RJx79Lv4FOgAO_vE4W3TYlU-DoyvV8",
@@ -152,4 +162,12 @@ export async function setToken(token: string) {
         };
         let res = await fetch('/api/login.json', options);
     }
+}
+
+export async function deleteTodo(document, uid) {
+    const auth = getAuth();
+
+    let res = await deleteDoc(doc(db, "todos", uid, "list", document));
+
+    return (res);
 }

@@ -21,16 +21,19 @@
 
 <script lang="ts">
 	import Card from '$lib/components/Card.svelte';
-	import ToDo from '$lib/components/ToDo.svelte';
-	import TodoStore from '$lib/stores/todos';
+	import ToDo from '$lib/components/todo/ToDo.svelte';
+	import TodoStore from '$lib/stores/todoStore';
 
-	export let todoReturn;
+	export let todoReturn: { todos: [] };
 	$TodoStore = todoReturn.todos;
-	$: console.log($TodoStore);
+	// $TodoStore.sort(function (a, b) {
+	// 	return a.completed ? 1 : -1;
+	// });
+	$: console.log({ $TodoStore });
 </script>
 
 <section>
-	<Card --min-height="400px">
+	<Card --min-height="200px">
 		<h1>To Do List</h1>
 		<ToDo />
 	</Card>

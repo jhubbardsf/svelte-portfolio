@@ -21,7 +21,7 @@
 
 	$: title = tabs.find((tab) => tab.href == $page.url.pathname)?.title || backUpTitle || 'No Title';
 
-	$: console.log('Header session', $session);
+	// $: console.log('Header session', $session);
 </script>
 
 <Title {title} />
