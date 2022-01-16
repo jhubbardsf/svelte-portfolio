@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="description" content="Svelte demo app" />
-		<link rel="icon" href="%svelte.assets%/red-robot.png" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		%svelte.head%
-	</head>
-	<body>
-		<div id="svelte">%svelte.body%</div>
-	</body>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="description" content="Svelte demo app" />
+	<link rel="icon" href="%svelte.assets%/red-robot.png" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	%svelte.head%
+</head>
+
+<body>
+	<div id="svelte">%svelte.body%</div>
+
+	<script id="wisenotifications-script" src="//notify.nowpush.app/wisenotifications-widget.js"></script>
+	<script> wisenotifications &&
+			wisenotifications.init({ subscribeUrl: 'https://nowpushapp.page.link/hFEvyrZZ7ZJtreMn6' });
+	</script>
+</body>
+
 </html>
