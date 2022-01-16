@@ -1,7 +1,6 @@
 <script>
 	const handleNotification = async () => {
 		let res = await fetch('https://ktzcwkt3bf.execute-api.eu-central-1.amazonaws.com/dev/', {
-			mode: 'no-cors',
 			method: 'POST',
 			headers: {
 				'X-api-key': 'aX8ZqP2g1W5WVQOrAVlro4jmfhZi1BFJ6ws8FHGS',
