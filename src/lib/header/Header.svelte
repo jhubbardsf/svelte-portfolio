@@ -14,7 +14,7 @@
 		{ href: '/', title: 'Home', public: true, onClick: null },
 		{ href: '/todos', title: 'Todos', public: false, onClick: null },
 		{ href: '/counter', title: 'Counter', public: false, onClick: null },
-		{ href: '/medications', title: 'Medications', public: false, onClick: null },
+		// { href: '/medications', title: 'Medications', public: false, onClick: null },
 		{ href: '#', title: 'Logout', public: false, onClick: signOutUser }
 	];
 

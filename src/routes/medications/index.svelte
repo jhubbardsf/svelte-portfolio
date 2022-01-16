@@ -1,25 +1,30 @@
 <script>
 	const handleNotification = async () => {
-		let res = await fetch('https://ktzcwkt3bf.execute-api.eu-central-1.amazonaws.com/dev/', {
-			mode: 'no-cors',
-			method: 'POST',
-			headers: {
-				'X-api-key': 'aX8ZqP2g1W5WVQOrAVlro4jmfhZi1BFJ6ws8FHGS',
-				'Content-Type': 'application/json',
-				'Access-Control-Allow-Origin': '*'
-			},
-			body: JSON.stringify({
-				title: 'Your awesome site title',
-				body: 'A Must Read New Post',
-				topicId: 'UpAbV3JthuxYALm45UUk',
-				destinationUrl: 'https://example.com/permalink-to-awesome-post'
-			})
-		});
-
-		console.log({ res });
+		console.log('Try Notifications');
 	};
 </script>
 
 <h1>Testing Medications Page</h1>
 
-<button on:click={handleNotification}>Send notification</button>
+<section>
+	<button on:click={handleNotification}>Send notification</button>
+</section>
+
+<style lang="scss">
+	section {
+		text-align: center;
+
+		button {
+			border: 2px solid black;
+			border-radius: 5px;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+			width: 25%;
+			border-radius: 5px;
+			background: white;
+			&:hover {
+				cursor: pointer;
+				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+			}
+		}
+	}
+</style>
