@@ -14,6 +14,8 @@
 				destinationUrl: 'https://example.com/permalink-to-awesome-post'
 			})
 		});
+
+		console.log({ res });
 	};
 </script>
 
