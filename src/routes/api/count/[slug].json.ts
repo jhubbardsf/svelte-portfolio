@@ -33,10 +33,11 @@ export async function get({ params }) {
     }
 }
 
-export const post = async ({ params, body }) => {
+export const post = async ({ params, request }) => {
     const { slug } = params;
     console.log({ slug });
     console.log(slug);
+    let body = await request.json();
     console.log(body);
 
     await setDoc(doc(db, "counter", slug), { "count": parseInt(body) });
