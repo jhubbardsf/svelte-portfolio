@@ -1,3 +1,4 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/18add2c7-841e-41f7-bba4-3e336ad0fbfe/deploy-status)](https://app.netlify.com/sites/josh-sveltekit/deploys)
 # SvelteKit + FireBase Example App
 This is a app showing different SvelteKite and FireBase functionality. Currently showing SvelteKit + FireBase authentication with email and google authentication. Several example apps which keep state are available on login. More will be added in the feature and will continue refactoring to DRY code and keep SvelteKit best practices.
 
