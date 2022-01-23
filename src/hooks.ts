@@ -27,7 +27,9 @@ export async function handle({ event, resolve }) {
 	const cookies = cookie.parse(event?.request.headers.get('cookie') || '');
 
 	// before endpoint call
-	event.locals.token = cookies[COOKIE_NAME];
+	if (event) { //  THIS if is needed to fix netlify deploy
+		event.locals.token = cookies[COOKIE_NAME];
+	}
 
 	// endpoint call
 	const response: Response = await resolve(event);
