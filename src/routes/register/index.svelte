@@ -84,12 +84,12 @@
 		form {
 			text-align: left;
 			padding-bottom: 18px;
-			.two-fields {
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-				gap: 10px;
-				text-align: left;
-			}
+			// .two-fields {
+			// 	display: grid;
+			// 	grid-template-columns: 1fr 1fr;
+			// 	gap: 10px;
+			// 	text-align: left;
+			// }
 			.form-field {
 				margin: 10px auto 0 auto;
 				label {
