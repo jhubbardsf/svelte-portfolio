@@ -8,6 +8,7 @@ const COOKIE_NAME = 'portfolio';
 /** @type {import('@sveltejs/kit').GetSession} */
 export async function getSession(event: RequestEvent) {
 	console.log("In getSession");
+	// Test vercel deploy
 	let decodedToken;
 
 	if (event) {
