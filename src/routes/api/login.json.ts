@@ -1,9 +1,12 @@
-export function post(request) {
-    console.log("login.js");
-    // console.log({ request });
+import type { RequestEvent } from "@sveltejs/kit";
 
-    const token: string = request.body?.token || '';
-    request.locals.token = token;
+/** @type {import('@sveltejs/kit').RequestHandler} */
+export async function post({ params, request, locals }) {
+    console.log("login.js");
+    let body = await request.json();
+
+    const token: string = body.token || '';
+    locals.token = token;
 
     return {
         status: 200
