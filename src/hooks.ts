@@ -8,10 +8,16 @@ const COOKIE_NAME = 'portfolio';
 /** @type {import('@sveltejs/kit').GetSession} */
 export async function getSession(event: RequestEvent) {
 	console.log("In getSession");
-	const cookies = cookie.parse(event?.request.headers.get('cookie') || '');
-	const token = cookies[COOKIE_NAME];
+	let decodedToken;
 
-	const decodedToken = await decodeToken(token);
+	if (event) {
+		const cookies = cookie.parse(event.request.headers.get('cookie') || '');
+
+		const token = cookies[COOKIE_NAME];
+
+		decodedToken = await decodeToken(token);
+	}
+
 
 	if (decodedToken) {
 		const { uid, name, email } = decodedToken;
@@ -24,26 +30,28 @@ export async function getSession(event: RequestEvent) {
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
 	console.log("In handle");
-	const cookies = cookie.parse(event?.request.headers.get('cookie') || '');
 
-	// before endpoint call
-	if (event) { //  THIS if is needed to fix netlify deploy
+	if (event) {
+		const cookies = cookie.parse(event?.request.headers.get('cookie') || '');
+
+		// before endpoint call
 		event.locals.token = cookies[COOKIE_NAME];
 	}
 
 	// endpoint call
 	const response: Response = await resolve(event);
 
-	// after endpoint call
-	const token = event?.locals.token;
+	if (event) {
+		// after endpoint call
+		const token = event?.locals.token;
 
-	const secure = process.env.NODE_ENV === 'production';
-	const maxAge = 7_200; // (3600 seconds / hour) * 2 hours
-	const sameSite = 'Strict';
-	const setCookieValue = `${COOKIE_NAME}=${token || ''}; Max-Age=${maxAge}; Path=/; ${secure ? 'Secure;' : ''
-		} HttpOnly; SameSite=${sameSite}`;
+		const secure = process.env.NODE_ENV === 'production';
+		const maxAge = 7_200; // (3600 seconds / hour) * 2 hours
+		const sameSite = 'Strict';
+		const setCookieValue = `${COOKIE_NAME}=${token || ''}; Max-Age=${maxAge}; Path=/; ${secure ? 'Secure;' : ''
+			} HttpOnly; SameSite=${sameSite}`;
 
-	response.headers.set('Set-Cookie', setCookieValue);
-
+		response.headers.set('Set-Cookie', setCookieValue);
+	}
 	return response;
 };
