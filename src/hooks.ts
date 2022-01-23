@@ -8,7 +8,7 @@ const COOKIE_NAME = 'portfolio';
 /** @type {import('@sveltejs/kit').GetSession} */
 export async function getSession(event: RequestEvent) {
 	console.log("In getSession");
-	const cookies = cookie.parse(event.request.headers.get('cookie') || '');
+	const cookies = cookie.parse(event?.request.headers.get('cookie') || '');
 	const token = cookies[COOKIE_NAME];
 
 	const decodedToken = await decodeToken(token);
@@ -24,7 +24,7 @@ export async function getSession(event: RequestEvent) {
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
 	console.log("In handle");
-	const cookies = cookie.parse(event.request.headers.get('cookie') || '');
+	const cookies = cookie.parse(event?.request.headers.get('cookie') || '');
 
 	// before endpoint call
 	event.locals.token = cookies[COOKIE_NAME];
