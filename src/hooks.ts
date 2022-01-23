@@ -1,14 +1,14 @@
 import type { DecodedIdToken } from 'firebase-admin/lib/auth/token-verifier';
-import type { ServerRequest } from '@sveltejs/kit/types/hooks';
+import type { RequestEvent } from '@sveltejs/kit/types/hooks';
 import type { Handle, GetSession } from '@sveltejs/kit';
 import { decodeToken } from '$lib/server/firebase';
 import cookie from 'cookie';
 
 const COOKIE_NAME = 'portfolio';
 
-export async function getSession(request: ServerRequest) {
+export async function getSession(event: RequestEvent) {
 	console.log("In getSession");
-	const cookies = cookie.parse(request.headers.cookie || '');
+	const cookies = cookie.parse(event.request.headers.get('cookie') || '');
 	const token = cookies[COOKIE_NAME];
 
 	const decodedToken = await decodeToken(token);
