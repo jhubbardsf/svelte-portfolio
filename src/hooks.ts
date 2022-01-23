@@ -33,7 +33,7 @@ export async function handle({ event, resolve }) {
 	const response: Response = await resolve(event);
 
 	// after endpoint call
-	const token = event.locals.token;
+	const token = event?.locals.token;
 
 	const secure = process.env.NODE_ENV === 'production';
 	const maxAge = 7_200; // (3600 seconds / hour) * 2 hours
